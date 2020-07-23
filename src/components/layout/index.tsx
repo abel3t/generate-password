@@ -1,9 +1,9 @@
 import * as React from 'react'
-import CSS from 'csstype';
-import { Layout, Row, Col, Select, Checkbox, Button, Input, Modal, Tooltip } from 'antd';
-import { ExclamationCircleOutlined, CopyTwoTone } from '@ant-design/icons';
+import CSS from 'csstype'
+import { Layout, Row, Col, Select, Checkbox, Button, Input, Modal, Tooltip } from 'antd'
+import { ExclamationCircleOutlined, CopyTwoTone } from '@ant-design/icons'
 
-import generatePassword from '../../services/generate-password';
+import generatePassword from '../../services/generate-password'
 
 interface State {
   passwordLength: number
@@ -38,76 +38,91 @@ class LayoutComponent extends React.Component<any, State> {
   }
 
   onChangePasswordLength(value) {
-    this.setState({
+    const change = {
       ...this.state,
       passwordLength: +value
-    });
+    }
+    change.password = this.generatePassword({ ...change }) || ''
+    this.setState({...change })
   }
   
   onChangeIncludeSymbols = (event) => {
-    this.setState({
+    const change = {
       ...this.state,
       includeSymbols: event.target.checked
-    });
+    }
+    change.password = this.generatePassword({ ...change }) || ''
+    this.setState({ ...change })
   }
 
   onChangeIncludeNumbers = (event) => {
-    this.setState({
+    const change = {
       ...this.state,
       includeNumbers: event.target.checked
-    });
+    }
+    change.password = this.generatePassword({ ...change }) || ''
+    this.setState({ ...change })
   }
 
   onChangeIncludeLowercaseCharacters = (event) => {
-    this.setState({
+    const change = {
       ...this.state,
       includeLowercaseCharacters: event.target.checked
-    });
+    }
+    change.password = this.generatePassword({ ...change }) || ''
+    this.setState({ ...change })
   }
 
   onChangeIncludeUppercaseCharacters = (event) => {
-    this.setState({
+    const change = {
       ...this.state,
       includeUppercaseCharacters: event.target.checked
-    });
+    }
+    change.password = this.generatePassword({ ...change }) || ''
+    this.setState({ ...change })
   }
 
   onChangeExcludeSimilarCharacters = (event) => {
-    this.setState({
+    const change = {
       ...this.state,
       excludeSimilarCharacters: event.target.checked
-    });
+    }
+    change.password = this.generatePassword({ ...change }) || ''
+    this.setState({ ...change })
   }
 
   onChangeExcludeAmbiguousCharacters = (event) => {
-    this.setState({
+    const change = {
       ...this.state,
       excludeAmbiguousCharacters: event.target.checked
-    });
+    }
+    change.password = this.generatePassword({...change}) || ''
+    this.setState({ ...change })
   }
 
-  onClickGenerate = () => {
+  generatePassword = (args: any) => {
     const {
+      passwordLength,
       includeSymbols,
       includeNumbers,
       includeLowercaseCharacters,
-      includeUppercaseCharacters
-    } = this.state;
+      includeUppercaseCharacters,
+      excludeSimilarCharacters,
+      excludeAmbiguousCharacters
+    } = args;
     
     if (includeSymbols || includeNumbers || includeLowercaseCharacters || includeUppercaseCharacters) {
-      this.setState({
-        ...this.state,
-        password: generatePassword(this.state.passwordLength, {
-          includeSymbols: this.state.includeSymbols,
-          includeNumbers: this.state.includeNumbers,
-          includeLowercaseCharacters: this.state.includeLowercaseCharacters,
-          includeUppercaseCharacters: this.state.includeUppercaseCharacters,
-          excludeSimilarCharacters: this.state.excludeSimilarCharacters,
-          excludeAmbiguousCharacters : this.state.excludeAmbiguousCharacters
-        })
-      });
+      return generatePassword(passwordLength, {
+        includeSymbols,
+        includeNumbers,
+        includeLowercaseCharacters,
+        includeUppercaseCharacters,
+        excludeSimilarCharacters,
+        excludeAmbiguousCharacters
+      })
     } else {
       this.showModalError();
+      return;
     }
   }
 
@@ -213,13 +228,6 @@ class LayoutComponent extends React.Component<any, State> {
             </Checkbox>
             </Col>
           </Row>
-
-          <Row style={rowStyle}>
-            <Col span={8}>
-              <Button type="primary" onClick={this.onClickGenerate.bind(this)}>Generate</Button>
-            </Col>
-          </Row>
-
           <Row style={rowStyle}>
             <Col span={8}>Your password:</Col>
             <Col span={6}>
