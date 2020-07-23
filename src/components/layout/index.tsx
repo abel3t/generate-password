@@ -100,6 +100,13 @@ class LayoutComponent extends React.Component<any, State> {
     this.setState({ ...change })
   }
 
+  onGeneratePassword = () => {
+    this.setState({
+      ...this.state,
+      password: this.generatePassword({ ...this.state })
+    })
+  }
+
   generatePassword = (args: any) => {
     const {
       passwordLength,
@@ -130,7 +137,7 @@ class LayoutComponent extends React.Component<any, State> {
     Modal.confirm({
       title: 'Missing Include',
       icon: <ExclamationCircleOutlined />,
-      content: 'Some descriptions'
+      content: 'You have to choose one include option!'
     });
   }
 
@@ -179,7 +186,7 @@ class LayoutComponent extends React.Component<any, State> {
             <Col span={8}>Include Symbols:</Col>
             <Col span={8}>
             <Checkbox onChange={this.onChangeIncludeSymbols.bind(this)} checked={this.state.includeSymbols}>
-              (@#$%)
+              <span style={{userSelect: 'none'}}>(!@#$%)</span>
             </Checkbox>
             </Col>
           </Row>
@@ -188,7 +195,7 @@ class LayoutComponent extends React.Component<any, State> {
             <Col span={8}>Include Numbers:</Col>
             <Col span={8}>
             <Checkbox onChange={this.onChangeIncludeNumbers.bind(this)} checked={this.state.includeNumbers}>
-              (123456)
+              <span style={{userSelect: 'none'}}>0123456789</span>
             </Checkbox>
             </Col>
           </Row>
@@ -197,7 +204,7 @@ class LayoutComponent extends React.Component<any, State> {
             <Col span={8}>Include Lowercase Characters:</Col>
             <Col span={8}>
             <Checkbox onChange={this.onChangeIncludeLowercaseCharacters.bind(this)} checked={this.state.includeLowercaseCharacters}>
-              (abcdefgh)
+              <span style={{userSelect: 'none'}}>(abcdefghik)</span>
             </Checkbox>
             </Col>
           </Row>
@@ -206,7 +213,7 @@ class LayoutComponent extends React.Component<any, State> {
             <Col span={8}>Include Uppercase Characters</Col>
             <Col span={8}>
             <Checkbox onChange={this.onChangeIncludeUppercaseCharacters.bind(this)} checked={this.state.includeUppercaseCharacters}>
-              (ABCDEFGH)
+              <span style={{userSelect: 'none'}}>(ABCDEFGHIK)</span>
             </Checkbox>
             </Col>
           </Row>
@@ -215,7 +222,7 @@ class LayoutComponent extends React.Component<any, State> {
             <Col span={8}>Exclude Similar Characters:</Col>
             <Col span={8}>
             <Checkbox onChange={this.onChangeExcludeSimilarCharacters.bind(this)} checked={this.state.excludeSimilarCharacters}>
-              ( i, l, 1, L, o, 0, O)
+              <span style={{userSelect: 'none'}}>( i, l, 1, L, o, 0, O)</span>
             </Checkbox>
             </Col>
           </Row>
@@ -224,10 +231,17 @@ class LayoutComponent extends React.Component<any, State> {
             <Col span={8}>Exclude Ambiguous Characters:</Col>
             <Col span={8}>
             <Checkbox onChange={this.onChangeExcludeAmbiguousCharacters.bind(this)} checked={this.state.excludeAmbiguousCharacters}>
-              ({ } [ ] ( ) / \ ' " ` ~ , ; : . &#60; &#62; )
+              <span style={{userSelect: 'none'}}>({ } [ ] ( ) / \ ' " ` ~ , ; : . &#60; &#62; )</span>
             </Checkbox>
             </Col>
           </Row>
+
+          <Row style={rowStyle}>
+            <Col span={8}>
+              <Button type="primary" onClick={this.onGeneratePassword.bind(this)}>Generate Password</Button>
+            </Col>
+          </Row>
+
           <Row style={rowStyle}>
             <Col span={8}>Your password:</Col>
             <Col span={6}>

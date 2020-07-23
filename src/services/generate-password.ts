@@ -31,22 +31,22 @@ function generateDigit(digits: string) {
 
 let functions: {[key: string ]: any } = {};
 
- function randomFunction(currentFunctions: {[key: string ]: any }) {
-   const _function = Object.keys(currentFunctions);
-   const option: string = _function[Math.floor(Math.random() * _function.length)];
-   const nextFunctions: {[key: string ]: any } = {
-     ...functions
-   };
+function randomFunction(currentFunctions: {[key: string ]: any }) {
+  const _function = Object.keys(currentFunctions);
+  const option: string = _function[Math.floor(Math.random() * _function.length)];
+  const nextFunctions: {[key: string ]: any } = {
+    ...functions
+  };
 
-  if (_function.length > 1) {
-    delete nextFunctions[option];
-  }
+if (_function.length > 1) {
+  delete nextFunctions[option];
+}
 
-   return {
-     type: option,
-     nextFunctions
-   };
- }
+  return {
+    type: option,
+    nextFunctions
+  };
+}
 
 /**
  * 
@@ -70,6 +70,7 @@ function generatePassword(length: number, options: any = {}) {
     excludeAmbiguousCharacters = false
   } = options;
 
+  const tracking: any = {};
   let symbols: any = [];
   let digits: string = '';
   let lowerAlphabet: string = '';
@@ -79,6 +80,7 @@ function generatePassword(length: number, options: any = {}) {
 
   if (includeSymbols) {
     functions.generateSymbol = generateSymbol;
+    tracking.generateSymbol = 'pending';
     symbols = ['!', '\"', '#', '$', '%', '&', '\'', '(', ')', '*', '+', ',', '-', '.', '/', ':', ';', '<', '=', '>', '?', '@', '[', '\\', ']', '^', '_', '`', '{', '|', '}', '~'];
   }
 
@@ -88,16 +90,19 @@ function generatePassword(length: number, options: any = {}) {
 
   if (includeLowercaseCharacters) {
     functions.generateLowerAlphabet = generateLowerAlphabet;
+    tracking.generateLowerAlphabet = 'pending';
     lowerAlphabet = 'abcdefghijklmnopqrstuvwxyz';
   }
 
   if (includeUppercaseCharacters) {
     functions.generateUpperAlphabet = generateUpperAlphabet;
+    tracking.generateUpperAlphabet = 'pending';
     upperAlphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
   }
 
   if (includeNumbers) {
     functions.generateDigit = generateDigit;
+    tracking.generateDigit = 'pending';
     digits = '0123456789';
   }
 
@@ -109,25 +114,50 @@ function generatePassword(length: number, options: any = {}) {
 
   let currentFunctions = {...functions };
   for (let i: number = 0; i < length; i++) {
-    const {
+    let {
       type,
       nextFunctions
     } = randomFunction(currentFunctions);
     currentFunctions = { ...nextFunctions };
 
+    let trackType;
+    if (i >= length - 4) {
+      if (tracking.generateSymbol === 'pending') {
+        type = 'generateSymbol';
+      } else if (tracking.generateLowerAlphabet === 'pending') {
+        type = 'generateLowerAlphabet';
+      } else if (tracking.generateUpperAlphabet === 'pending') {
+        type = 'generateUpperAlphabet';
+      } else if (tracking.generateDigit === 'pending') {
+        type = 'generateDigit';
+      }
+
+      if (trackType) {
+        type = trackType;
+        currentFunctions = { ...functions };
+        if (Object.keys(currentFunctions).length > 1) {
+          delete nextFunctions[type];
+        }
+      }
+    }
+
     let char: string = '';
     switch (type) {
       case 'generateSymbol':
         char = generateSymbol(symbols);
+        tracking.generateSymbol = 'resolved';
         break;
       case 'generateLowerAlphabet':
         char = generateLowerAlphabet(lowerAlphabet);
+        tracking.generateLowerAlphabet = 'resolved';
         break;
       case 'generateUpperAlphabet':
         char = generateUpperAlphabet(upperAlphabet);
+        tracking.generateUpperAlphabet = 'resolved';
         break;
       case 'generateDigit':
         char = generateDigit(digits);
+        tracking.generateDigit = 'resolved';
         break;
       default:
         break;
