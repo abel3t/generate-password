@@ -4,6 +4,7 @@ import { Layout, Row, Col, Select, Checkbox, Button, Input, Modal, Tooltip } fro
 import { ExclamationCircleOutlined, CopyTwoTone } from '@ant-design/icons'
 
 import generatePassword from '../../services/generate-password'
+import { languages, languagesText } from '../../services/languages'
 
 interface State {
   passwordLength: number
@@ -13,6 +14,7 @@ interface State {
   includeUppercaseCharacters: boolean,
   excludeSimilarCharacters: boolean,
   excludeAmbiguousCharacters: boolean,
+  languageId: string,
   password: string
 }
 
@@ -20,6 +22,7 @@ class LayoutComponent extends React.Component<any, State> {
   constructor(props: any) {
     super(props);
     this.state = {
+      languageId: 'en',
       passwordLength: 6,
       includeSymbols: true,
       includeNumbers: true,
@@ -107,6 +110,15 @@ class LayoutComponent extends React.Component<any, State> {
     })
   }
 
+  onChangeLanguage = (value) => {
+    this.setState({
+      ...this.state,
+      languageId: value
+    })
+
+    document.title = languagesText[value].title;
+  }
+
   generatePassword = (args: any) => {
     const {
       passwordLength,
@@ -150,13 +162,13 @@ class LayoutComponent extends React.Component<any, State> {
     return (
       <Layout>
         <Layout.Header style={{background: '#FFF', textAlign: 'center'}}>
-          <h1>Secure Password</h1>
+          <h1>{languagesText[this.state.languageId || 'en'].h1}</h1>
         </Layout.Header>
         <hr />
         <Layout.Content style={{paddingLeft: '40px'}}>
           <Row style={rowStyle}>
             <Col span={8}>
-              Password Length
+              {languagesText[this.state.languageId || 'en'].passwordLength}
             </Col>
             <Col span={8}>
               <Select defaultValue={`${this.state.passwordLength}`} style={{ width: 90 }} onChange={this.onChangePasswordLength.bind(this)}>
@@ -180,10 +192,18 @@ class LayoutComponent extends React.Component<any, State> {
                 </Select.OptGroup>
               </Select>
             </Col>
+          
+            <Col span={4}>
+              <Select defaultValue={`${languagesText[this.state.languageId].name}`} style={{ width: 120 }} onChange={this.onChangeLanguage.bind(this)}>
+                {
+                  languages.map((language, index) => <Select.Option key={`lang-${index}`} style={{textAlign: 'center'}} value={language.id}>{language.name}</Select.Option>)
+                }
+              </Select>
+            </Col>
           </Row>
 
           <Row style={rowStyle}>
-            <Col span={8}>Include Symbols:</Col>
+            <Col span={8}>{languagesText[this.state.languageId || 'en'].includeSymbols}</Col>
             <Col span={8}>
             <Checkbox onChange={this.onChangeIncludeSymbols.bind(this)} checked={this.state.includeSymbols}>
               <span style={{userSelect: 'none'}}>(!@#$%)</span>
@@ -192,7 +212,7 @@ class LayoutComponent extends React.Component<any, State> {
           </Row>
 
           <Row style={rowStyle}>
-            <Col span={8}>Include Numbers:</Col>
+            <Col span={8}>{languagesText[this.state.languageId || 'en'].includeNumbers}</Col>
             <Col span={8}>
             <Checkbox onChange={this.onChangeIncludeNumbers.bind(this)} checked={this.state.includeNumbers}>
               <span style={{userSelect: 'none'}}>0123456789</span>
@@ -201,7 +221,7 @@ class LayoutComponent extends React.Component<any, State> {
           </Row>
 
           <Row style={rowStyle}>
-            <Col span={8}>Include Lowercase Characters:</Col>
+            <Col span={8}>{languagesText[this.state.languageId || 'en'].includeLowercaseCharacters}</Col>
             <Col span={8}>
             <Checkbox onChange={this.onChangeIncludeLowercaseCharacters.bind(this)} checked={this.state.includeLowercaseCharacters}>
               <span style={{userSelect: 'none'}}>(abcdefghik)</span>
@@ -210,7 +230,7 @@ class LayoutComponent extends React.Component<any, State> {
           </Row>
 
           <Row style={rowStyle}>
-            <Col span={8}>Include Uppercase Characters</Col>
+            <Col span={8}>{languagesText[this.state.languageId || 'en'].includeUppercaseCharacters}</Col>
             <Col span={8}>
             <Checkbox onChange={this.onChangeIncludeUppercaseCharacters.bind(this)} checked={this.state.includeUppercaseCharacters}>
               <span style={{userSelect: 'none'}}>(ABCDEFGHIK)</span>
@@ -219,7 +239,7 @@ class LayoutComponent extends React.Component<any, State> {
           </Row>
 
           <Row style={rowStyle}>
-            <Col span={8}>Exclude Similar Characters:</Col>
+            <Col span={8}>{languagesText[this.state.languageId || 'en'].excludeSimilarCharacters}</Col>
             <Col span={8}>
             <Checkbox onChange={this.onChangeExcludeSimilarCharacters.bind(this)} checked={this.state.excludeSimilarCharacters}>
               <span style={{userSelect: 'none'}}>( i, l, 1, L, o, 0, O)</span>
@@ -228,7 +248,7 @@ class LayoutComponent extends React.Component<any, State> {
           </Row>
 
           <Row style={rowStyle}>
-            <Col span={8}>Exclude Ambiguous Characters:</Col>
+            <Col span={8}>{languagesText[this.state.languageId || 'en'].excludeAmbiguousCharacters}</Col>
             <Col span={8}>
             <Checkbox onChange={this.onChangeExcludeAmbiguousCharacters.bind(this)} checked={this.state.excludeAmbiguousCharacters}>
               <span style={{userSelect: 'none'}}>({ } [ ] ( ) / \ ' " ` ~ , ; : . &#60; &#62; )</span>
@@ -238,12 +258,12 @@ class LayoutComponent extends React.Component<any, State> {
 
           <Row style={rowStyle}>
             <Col span={8}>
-              <Button type="primary" onClick={this.onGeneratePassword.bind(this)}>Generate Password</Button>
+              <Button type="primary" onClick={this.onGeneratePassword.bind(this)}>{languagesText[this.state.languageId || 'en'].generatePassword}</Button>
             </Col>
           </Row>
 
           <Row style={rowStyle}>
-            <Col span={8}>Your password:</Col>
+            <Col span={8}>{languagesText[this.state.languageId || 'en'].password}</Col>
             <Col span={6}>
               <Input value={this.state.password} id={"password"}/>
             </Col>
