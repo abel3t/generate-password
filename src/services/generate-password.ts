@@ -104,7 +104,7 @@ function generatePassword(length: number, options: any = {}) {
   if (excludeSimilarCharacters) {
     lowerAlphabet = lowerAlphabet && 'abcdefghjkmnpqrstuvwxyz';
     upperAlphabet = upperAlphabet && 'ABCDEFGHIJKMNPQRSTUVWXYZ';
-    digits = upperAlphabet && '123456789';
+    digits = digits && '123456789';
   }
 
   let currentFunctions = {...functions };
@@ -131,6 +131,10 @@ function generatePassword(length: number, options: any = {}) {
         break;
       default:
         break;
+    }
+
+    if (char == undefined) {
+      console.log('Having some Error');
     }
     
     s += char;
