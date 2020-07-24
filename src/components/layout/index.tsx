@@ -283,12 +283,11 @@ class LayoutComponent extends React.Component<any, State> {
         
         <Layout.Footer>
         <AdSense.Google
-          client='ca-pub-7292810486004926'
-          slot='7806394673'
-          style={{ display: 'block' }}
+          client='ca-pub-6070398767421094'
+          slot='7970819550/9447527430'
+          style={{ display: 'block', height: '250px' }}
           format='auto'
           responsive='true'
-          layoutKey='-gw-1+2a-9x+5c'
         />
         </Layout.Footer>
         </Layout>
