@@ -3,7 +3,8 @@ import CSS from 'csstype'
 import { Layout, Row, Col, Select, Checkbox, Button, Input, Modal, Tooltip } from 'antd'
 import { ExclamationCircleOutlined, CopyTwoTone } from '@ant-design/icons'
 
-import Ads from '../GoogleAds'
+// import Ads from '../GoogleAds'
+import AdSense from 'react-adsense';
 
 import generatePassword from '../../services/generate-password'
 import { languages, languagesText } from '../../services/languages'
@@ -281,7 +282,14 @@ class LayoutComponent extends React.Component<any, State> {
         </Layout.Content>
         
         <Layout.Footer>
-          <Ads slotId="pub12345" width="500" height="300"/>
+        <AdSense.Google
+          client='ca-pub-7292810486004926'
+          slot='7806394673'
+          style={{ display: 'block' }}
+          format='auto'
+          responsive='true'
+          layoutKey='-gw-1+2a-9x+5c'
+        />
         </Layout.Footer>
         </Layout>
     )
