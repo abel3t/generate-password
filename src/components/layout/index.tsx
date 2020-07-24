@@ -281,7 +281,7 @@ class LayoutComponent extends React.Component<any, State> {
         </Layout.Content>
         
         <Layout.Footer>
-          <Ads slotId="pub12345" width="350px" height="100px"/>
+          <Ads slotId="pub12345" width="500" height="300"/>
         </Layout.Footer>
         </Layout>
     )
