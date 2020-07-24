@@ -167,26 +167,25 @@ class LayoutComponent extends React.Component<any, State> {
         <Layout.Header style={{background: '#FFF', textAlign: 'center'}}>
           <div className='title-generator' style={{color: blue[7]}}>{languagesText[this.state.languageId || 'en'].h1}</div>
         </Layout.Header>
-        <hr />
-        <Layout.Content style={{paddingLeft: '40px'}}>
-          <Row>
-            <Col span={2} offset={21} style={{position: 'fixed'}}>
+        <Row>
+            <Col span={2} xs={{offset: 15}} sm={{offset: 17}} md={{offset: 19}} lg={{offset: 21}} style={{position: 'fixed'}}>
               <Select defaultValue={`${languagesText[this.state.languageId].name}`} style={{ width: 120 }} onChange={this.onChangeLanguage.bind(this)}>
                 {
                   languages.map((language, index) => <Select.Option key={`lang-${index}`} style={{textAlign: 'center'}} value={language.id}>{language.name}</Select.Option>)
                 }
               </Select>
             </Col>
-          </Row>
+        </Row>
+        <Layout.Content style={{padding: '40px'}}>
           <div className="box-generated-password">
             <Row>
-              <Col span={21}>
+              <Col md={{span: 21}} sm={{span: 20}} xs={{span: 16}}>
                 <Form>
                   <Input id="password-is-generated" value={this.state.password}/>
                 </Form>
               </Col>
 
-              <Col span={3}>
+              <Col md={{span: 3}} sm={{span: 3}} xs={{span: 8}}>
                 <div className="wrapper-icon-generated">
                 <Tooltip placement="bottom" title={"Copied!"} trigger="click">
                   <CopyOutlined onClick={this.onCopy} style={{ marginLeft: "10px" }}/>
@@ -198,8 +197,7 @@ class LayoutComponent extends React.Component<any, State> {
                 </div>
               </Col>
             </Row>
-            <div className="generated-password-strength">
-            </div>
+            <div className="generated-password-strength"></div>
           </div>
 
           <div className="setting">
@@ -269,7 +267,7 @@ class LayoutComponent extends React.Component<any, State> {
               </Col>
             </Row>
           </div>
-        </Layout.Content>
+          </Layout.Content>
         <Layout.Footer>
         <GoogleAds
           client='ca-pub-9551612008461721'
