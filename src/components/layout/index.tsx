@@ -3,6 +3,8 @@ import CSS from 'csstype'
 import { Layout, Row, Col, Select, Checkbox, Button, Input, Modal, Tooltip } from 'antd'
 import { ExclamationCircleOutlined, CopyTwoTone } from '@ant-design/icons'
 
+import Ads from '../GoogleAds'
+
 import generatePassword from '../../services/generate-password'
 import { languages, languagesText } from '../../services/languages'
 
@@ -159,6 +161,7 @@ class LayoutComponent extends React.Component<any, State> {
     const strongPassword = [16, 17, 18, 19, 20, 25, 30, 35, 40, 50, 60, 70, 80, 90, 100];
     const amazingPassword = [256, 512, 1024, 2048];
 
+    console.log(process.env.PORT, 'port')
     return (
       <Layout>
         <Layout.Header style={{background: '#FFF', textAlign: 'center'}}>
@@ -258,7 +261,7 @@ class LayoutComponent extends React.Component<any, State> {
 
           <Row style={rowStyle}>
             <Col span={8}>
-              <Button type="primary" onClick={this.onGeneratePassword.bind(this)}>{languagesText[this.state.languageId || 'en'].generatePassword}</Button>
+              <Button type="primary" onClick={this.onGeneratePassword.bind(this)}>{languagesText[this.state.languageId || 'en'].buttonGenerate}</Button>
             </Col>
           </Row>
 
@@ -277,7 +280,11 @@ class LayoutComponent extends React.Component<any, State> {
           </Row>
   
         </Layout.Content>
-      </Layout>
+        
+        <Layout.Footer>
+          <Ads slotId="pub12345" width="150px" height="50px"/>
+        </Layout.Footer>
+        </Layout>
     )
   }
 }
