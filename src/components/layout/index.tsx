@@ -161,7 +161,6 @@ class LayoutComponent extends React.Component<any, State> {
     const strongPassword = [16, 17, 18, 19, 20, 25, 30, 35, 40, 50, 60, 70, 80, 90, 100];
     const amazingPassword = [256, 512, 1024, 2048];
 
-    console.log(process.env.PORT, 'port')
     return (
       <Layout>
         <Layout.Header style={{background: '#FFF', textAlign: 'center'}}>
@@ -282,7 +281,7 @@ class LayoutComponent extends React.Component<any, State> {
         </Layout.Content>
         
         <Layout.Footer>
-          <Ads slotId="pub12345" width="150px" height="50px"/>
+          <Ads slotId="pub12345" width="350px" height="100px"/>
         </Layout.Footer>
         </Layout>
     )
