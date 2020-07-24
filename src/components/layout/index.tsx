@@ -1,7 +1,8 @@
 import * as React from 'react'
 import CSS from 'csstype'
-import { Layout, Row, Col, Select, Checkbox, Button, Input, Modal, Tooltip } from 'antd'
-import { ExclamationCircleOutlined, CopyTwoTone } from '@ant-design/icons'
+import { Form, Layout, Row, Col, Select, Checkbox, Button, Input, Modal, Tooltip, Slider } from 'antd'
+import { ExclamationCircleOutlined, CopyOutlined, SyncOutlined } from '@ant-design/icons'
+import { blue, red } from '@ant-design/colors';
 
 import GoogleAds from '../GoogleAds'
 
@@ -37,15 +38,18 @@ class LayoutComponent extends React.Component<any, State> {
   }
 
   onCopy = () => {
-    const elm: any = document.getElementById('password')
+    const elm: any = document.getElementById('password-is-generated')
     elm.select();
     document.execCommand("copy");
   }
 
   onChangePasswordLength(value) {
+    if (value && value.target) {
+      value = value.target.value;
+    }
     const change = {
       ...this.state,
-      passwordLength: +value
+      passwordLength: +value || 0
     }
     change.password = this.generatePassword({ ...change }) || ''
     this.setState({...change })
@@ -157,45 +161,16 @@ class LayoutComponent extends React.Component<any, State> {
 
   render() {
     const rowStyle: CSS.Properties = {padding: '10px', fontSize: '15px', fontWeight: 450};
-    const weakPassword = [6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
-    const strongPassword = [16, 17, 18, 19, 20, 25, 30, 35, 40, 50, 60, 70, 80, 90, 100];
-    const amazingPassword = [256, 512, 1024, 2048];
 
     return (
       <Layout>
         <Layout.Header style={{background: '#FFF', textAlign: 'center'}}>
-          <h1>{languagesText[this.state.languageId || 'en'].h1}</h1>
+          <div className='title-generator' style={{color: blue[7]}}>{languagesText[this.state.languageId || 'en'].h1}</div>
         </Layout.Header>
         <hr />
         <Layout.Content style={{paddingLeft: '40px'}}>
-          <Row style={rowStyle}>
-            <Col span={8}>
-              {languagesText[this.state.languageId || 'en'].passwordLength}
-            </Col>
-            <Col span={8}>
-              <Select defaultValue={`${this.state.passwordLength}`} style={{ width: 90 }} onChange={this.onChangePasswordLength.bind(this)}>
-                
-                <Select.OptGroup label="Weak">
-                  {
-                    weakPassword.map((password, index) => <Select.Option key={`week-${index}`} style={{textAlign: 'center'}} value={password}>{password}</Select.Option>)
-                  }
-                </Select.OptGroup>
-
-                <Select.OptGroup label="Strong">
-                  {
-                    strongPassword.map((password, index) => <Select.Option key={`strong-${index}`} style={{textAlign: 'center'}} value={password}>{password}</Select.Option>)
-                  }
-                </Select.OptGroup>
-              
-                <Select.OptGroup label="Amazing">
-                {
-                  amazingPassword.map((password, index) => <Select.Option key={`amazing-${index}`} style={{textAlign: 'center'}} value={password}>{password}</Select.Option>)
-                }
-                </Select.OptGroup>
-              </Select>
-            </Col>
-          
-            <Col span={4}>
+          <Row>
+            <Col span={2} offset={21} style={{position: 'fixed'}}>
               <Select defaultValue={`${languagesText[this.state.languageId].name}`} style={{ width: 120 }} onChange={this.onChangeLanguage.bind(this)}>
                 {
                   languages.map((language, index) => <Select.Option key={`lang-${index}`} style={{textAlign: 'center'}} value={language.id}>{language.name}</Select.Option>)
@@ -203,81 +178,97 @@ class LayoutComponent extends React.Component<any, State> {
               </Select>
             </Col>
           </Row>
+          <div className="box-generated-password">
+            <Row>
+              <Col span={21}>
+                <Form>
+                  <Input id="password-is-generated" value={this.state.password}/>
+                </Form>
+              </Col>
 
-          <Row style={rowStyle}>
-            <Col span={8}>{languagesText[this.state.languageId || 'en'].includeSymbols}</Col>
-            <Col span={8}>
-            <Checkbox onChange={this.onChangeIncludeSymbols.bind(this)} checked={this.state.includeSymbols}>
-              <span style={{userSelect: 'none'}}>(!@#$%)</span>
-            </Checkbox>
-            </Col>
-          </Row>
+              <Col span={3}>
+                <div className="wrapper-icon-generated">
+                <Tooltip placement="bottom" title={"Copied!"} trigger="click">
+                  <CopyOutlined onClick={this.onCopy} style={{ marginLeft: "10px" }}/>
+                </Tooltip>
 
-          <Row style={rowStyle}>
-            <Col span={8}>{languagesText[this.state.languageId || 'en'].includeNumbers}</Col>
-            <Col span={8}>
-            <Checkbox onChange={this.onChangeIncludeNumbers.bind(this)} checked={this.state.includeNumbers}>
-              <span style={{userSelect: 'none'}}>0123456789</span>
-            </Checkbox>
-            </Col>
-          </Row>
+                <Tooltip placement="bottom" title={"Generated!"} trigger="click">
+                  <SyncOutlined onClick={this.onGeneratePassword.bind(this)} style={{ marginLeft: "10px" }}/>
+                </Tooltip>
+                </div>
+              </Col>
+            </Row>
+            <div className="generated-password-strength">
+            </div>
+          </div>
 
-          <Row style={rowStyle}>
-            <Col span={8}>{languagesText[this.state.languageId || 'en'].includeLowercaseCharacters}</Col>
-            <Col span={8}>
-            <Checkbox onChange={this.onChangeIncludeLowercaseCharacters.bind(this)} checked={this.state.includeLowercaseCharacters}>
-              <span style={{userSelect: 'none'}}>(abcdefghik)</span>
-            </Checkbox>
-            </Col>
-          </Row>
+          <div className="setting">
+            <Row style={rowStyle}>
+              <Col span={10} className="text-label">
+                {languagesText[this.state.languageId || 'en'].passwordLength}
+              </Col>
+              <Col span={8}>
+                <Slider value={this.state.passwordLength} min={6} max={200} style={{color: red[8]}} onChange={this.onChangePasswordLength.bind(this)}/>
+              </Col>
+              <Col span={2} offset={1}>
+                <Input value={this.state.passwordLength} onChange={this.onChangePasswordLength.bind(this)} />
+              </Col>
+            </Row>
 
-          <Row style={rowStyle}>
-            <Col span={8}>{languagesText[this.state.languageId || 'en'].includeUppercaseCharacters}</Col>
-            <Col span={8}>
-            <Checkbox onChange={this.onChangeIncludeUppercaseCharacters.bind(this)} checked={this.state.includeUppercaseCharacters}>
-              <span style={{userSelect: 'none'}}>(ABCDEFGHIK)</span>
-            </Checkbox>
-            </Col>
-          </Row>
+            <Row style={rowStyle}>
+              <Col className='text-label' span={10}>{languagesText[this.state.languageId || 'en'].includeSymbols}</Col>
+              <Col span={8}>
+              <Checkbox onChange={this.onChangeIncludeSymbols.bind(this)} checked={this.state.includeSymbols}>
+                <span style={{userSelect: 'none'}}>(!@#$%)</span>
+              </Checkbox>
+              </Col>
+            </Row>
 
-          <Row style={rowStyle}>
-            <Col span={8}>{languagesText[this.state.languageId || 'en'].excludeSimilarCharacters}</Col>
-            <Col span={8}>
-            <Checkbox onChange={this.onChangeExcludeSimilarCharacters.bind(this)} checked={this.state.excludeSimilarCharacters}>
-              <span style={{userSelect: 'none'}}>( i, l, 1, L, o, 0, O)</span>
-            </Checkbox>
-            </Col>
-          </Row>
+            <Row style={rowStyle}>
+              <Col className='text-label' span={10}>{languagesText[this.state.languageId || 'en'].includeNumbers}</Col>
+              <Col span={8}>
+              <Checkbox onChange={this.onChangeIncludeNumbers.bind(this)} checked={this.state.includeNumbers}>
+                <span style={{userSelect: 'none'}}>0123456789</span>
+              </Checkbox>
+              </Col>
+            </Row>
 
-          <Row style={rowStyle}>
-            <Col span={8}>{languagesText[this.state.languageId || 'en'].excludeAmbiguousCharacters}</Col>
-            <Col span={8}>
-            <Checkbox onChange={this.onChangeExcludeAmbiguousCharacters.bind(this)} checked={this.state.excludeAmbiguousCharacters}>
-              <span style={{userSelect: 'none'}}>({ } [ ] ( ) / \ ' " ` ~ , ; : . &#60; &#62; )</span>
-            </Checkbox>
-            </Col>
-          </Row>
+            <Row style={rowStyle}>
+              <Col className='text-label' span={10}>{languagesText[this.state.languageId || 'en'].includeLowercaseCharacters}</Col>
+              <Col span={8}>
+              <Checkbox onChange={this.onChangeIncludeLowercaseCharacters.bind(this)} checked={this.state.includeLowercaseCharacters}>
+                <span style={{userSelect: 'none'}}>(abcdefghik)</span>
+              </Checkbox>
+              </Col>
+            </Row>
 
-          <Row style={rowStyle}>
-            <Col span={8}>
-              <Button type="primary" onClick={this.onGeneratePassword.bind(this)}>{languagesText[this.state.languageId || 'en'].buttonGenerate}</Button>
-            </Col>
-          </Row>
+            <Row style={rowStyle}>
+              <Col className='text-label' span={10}>{languagesText[this.state.languageId || 'en'].includeUppercaseCharacters}</Col>
+              <Col span={8}>
+              <Checkbox onChange={this.onChangeIncludeUppercaseCharacters.bind(this)} checked={this.state.includeUppercaseCharacters}>
+                <span style={{userSelect: 'none'}}>(ABCDEFGHIK)</span>
+              </Checkbox>
+              </Col>
+            </Row>
 
-          <Row style={rowStyle}>
-            <Col span={8}>{languagesText[this.state.languageId || 'en'].password}</Col>
-            <Col span={6}>
-              <Input value={this.state.password} id={"password"}/>
-            </Col>
-            <Col span={1}>
-            <Tooltip placement="bottom" title={"Copied!"} trigger="click">
-              <Button onClick={this.onCopy}>
-              <CopyTwoTone className={"copy-icon"}/>
-              </Button>
-            </Tooltip>
-            </Col>
-          </Row>
-  
+            <Row style={rowStyle}>
+              <Col className='text-label' span={10}>{languagesText[this.state.languageId || 'en'].excludeSimilarCharacters}</Col>
+              <Col span={8}>
+              <Checkbox onChange={this.onChangeExcludeSimilarCharacters.bind(this)} checked={this.state.excludeSimilarCharacters}>
+                <span style={{userSelect: 'none'}}>( i, l, 1, L, o, 0, O)</span>
+              </Checkbox>
+              </Col>
+            </Row>
+
+            <Row style={rowStyle}>
+              <Col className='text-label' span={10}>{languagesText[this.state.languageId || 'en'].excludeAmbiguousCharacters}</Col>
+              <Col span={8}>
+              <Checkbox onChange={this.onChangeExcludeAmbiguousCharacters.bind(this)} checked={this.state.excludeAmbiguousCharacters}>
+                <span style={{userSelect: 'none'}}>({ } [ ] ( ) / \ ' " ` ~ , ; : . &#60; &#62; )</span>
+              </Checkbox>
+              </Col>
+            </Row>
+          </div>
         </Layout.Content>
         <Layout.Footer>
         <GoogleAds

@@ -1,1 +1,82 @@
 @import '~antd/dist/antd.css';
+@import url('https://fonts.googleapis.com/css2?family=Rowdies:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif:wght@700&display=swap');
+
+.title-generator {
+  font-size: 25px;
+  text-align: center;
+  font-weight: bold;
+  user-select: none;
+  font-family: Helvetica, sans-serif;
+  text-transform: uppercase;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+.box-generated-password {
+  border: 1px solid #eaeaea;
+    border-radius: 5px;
+    background-color: #fff;
+    -webkit-box-shadow: 0 2px 8px rgba(0,0,0,.15);
+    box-shadow: 0 2px 8px rgba(0,0,0,.15);
+    max-width: 800px;
+    margin: 0 auto 10px;
+    padding: 20px 16px;
+    border-top: 1px;
+    border-right: 1px;
+    border-bottom: 0;
+    border-left: 1px;
+    border-style: solid;
+    border-color: #eaeaea;
+}
+
+#password-is-generated {
+  border: none;
+  -webkit-box-shadow: 0 2px 8px rgba(0,0,0,.15);
+  box-shadow: 0 2px 8px 0px rgba(0,0,0,.15);
+  height: 50px;
+  font-size: 25px;
+  font-family: monospace;
+  border-left: none;
+}
+
+.wrapper-icon-generated {
+  padding: 5px;
+  font-size: 25px;
+  border: none;
+  -webkit-box-shadow: 0 2px 8px rgba(0,0,0,.15);
+  box-shadow: 0 2px 8px 0px rgba(0,0,0,.15);
+  height: 50px;
+  border-left: none;
+}
+
+.generated-password-strength {
+  position: absolute;
+  bottom: 1px;
+  left: 0;
+  width: 0;
+  height: 10px;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  background-color: #5ed98a;
+  -webkit-transition: width .63s;
+  transition: width .63s;
+}
+
+.setting {
+  border: 1px solid #eaeaea;
+  border-radius: 5px;
+  background-color: #fff;
+  -webkit-box-shadow: 0 2px 8px rgba(0,0,0,.15);
+  box-shadow: 0 2px 8px rgba(0,0,0,.15);
+  max-width: 800px;
+  margin: 0 auto 15px;
+  padding: 25px;
+}
+
+.text-label {
+  font-size: 16px;
+  font-weight: 400;
+  font-family: 'Noto Serif', serif;
+}
