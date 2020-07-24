@@ -11,8 +11,8 @@ const IndexPage = (props: any) => {
           <meta name="viewport" content="initial-scale=1.0, width=device-width" />
           <meta name="description" content={"Secure Password Generator"}/>
           <link rel="shortcut icon" href="favicon.ico"/>
-          <script async type='text/javascript' src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js' />
-      </Head>
+          <script data-ad-client="ca-pub-9551612008461721" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+          </Head>
       <LayoutComponent />
     </>
   ) 
