@@ -135,7 +135,6 @@ class LayoutComponent extends React.Component<any, State> {
     timeout(250)
       .then(() => {
         document.getElementById('icon-generate').setAttribute('id', 'icon-gen')
-        console.log(document.getElementById('icon-gen'))
         this.setState({
           ...this.state,
           password: this.generatePassword({ ...this.state })
