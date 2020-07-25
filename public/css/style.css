@@ -90,3 +90,13 @@ input {
   font-size: 13px;
   font-family: 'Noto Sans SC', sans-serif;
 }
+
+#icon-generate {
+  -webkit-animation:spin .25s linear infinite;
+  -moz-animation:spin .25s linear infinite;
+  animation:spin .25s linear infinite;
+}
+
+@-moz-keyframes spin { 100% { -moz-transform: rotate(180deg); } }
+@-webkit-keyframes spin { 100% { -webkit-transform: rotate(180deg); } }
+@keyframes spin { 100% { -webkit-transform: rotate(180deg); transform:rotate(180deg); } }

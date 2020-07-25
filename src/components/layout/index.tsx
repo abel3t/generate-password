@@ -129,10 +129,19 @@ class LayoutComponent extends React.Component<any, State> {
   }
 
   onGeneratePassword = () => {
-    this.setState({
-      ...this.state,
-      password: this.generatePassword({ ...this.state })
-    })
+    const timeout = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
+
+    document.getElementById('icon-gen').setAttribute('id', 'icon-generate')
+    timeout(250)
+      .then(() => {
+        document.getElementById('icon-generate').setAttribute('id', 'icon-gen')
+        console.log(document.getElementById('icon-gen'))
+        this.setState({
+          ...this.state,
+          password: this.generatePassword({ ...this.state })
+        })
+      })
+      .catch(error => console.log(error))
   }
 
   onChangeLanguage = (value) => {
@@ -204,15 +213,14 @@ class LayoutComponent extends React.Component<any, State> {
                 </Form>
               </Col>
 
-              <Col md={{span: 3}} sm={{span: 3}} xs={{span: 8}}>
+              <Col md={{span: 3}} sm={{span: 4}} xs={{span: 8}} style={{textAlign: "center"}}>
                 <div className="wrapper-icon-generated">
-                <Tooltip placement="bottom" title={"Copied!"} trigger="click">
-                  <CopyOutlined onClick={this.onCopy} style={{ marginLeft: "10px" }}/>
-                </Tooltip>
-
-                <Tooltip placement="bottom" title={"Generated!"} trigger="click">
-                  <SyncOutlined onClick={this.onGeneratePassword.bind(this)} style={{ marginLeft: "10px" }}/>
-                </Tooltip>
+                  <Tooltip placement="bottom" title={"Copied!"} trigger="click">
+                    <CopyOutlined onClick={this.onCopy} style={{ marginLeft: "10px" }}/>
+                  </Tooltip>
+                  <Tooltip placement="bottom" title={""} trigger="click">
+                    <SyncOutlined id='icon-gen' onClick={this.onGeneratePassword.bind(this)} style={{ marginLeft: "10px" }}/>
+                  </Tooltip>
                 </div>
               </Col>
             </Row>
