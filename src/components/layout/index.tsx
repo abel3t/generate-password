@@ -52,13 +52,13 @@ class LayoutComponent extends React.Component<any, State> {
       value = 60
     }
 
-    if (+value < 0) {
-      value = 0
+    if (+value < 6) {
+      value = 6
     }
 
     const change = {
       ...this.state,
-      passwordLength: +value || 0
+      passwordLength: +value || 6
     }
     change.password = this.generatePassword({ ...change }) || ''
     this.setState({...change })
