@@ -41,6 +41,11 @@
   border-left: none;
 }
 
+input {
+  font-family: monospace;
+  font-size: 20px;
+}
+
 .wrapper-icon-generated {
   padding: 5px;
   font-size: 25px;
