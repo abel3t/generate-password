@@ -202,20 +202,20 @@ class LayoutComponent extends React.Component<any, State> {
 
           <div className="setting">
             <Row style={rowStyle}>
-              <Col span={10} className="text-label">
+              <Col xs={{span: 10}} className="text-label">
                 {languagesText[this.state.languageId || 'en'].passwordLength}
               </Col>
-              <Col span={8}>
+              <Col xs={{span: 8, offset: 2}} sm={{span: 9, offset: 1}}>
                 <Slider value={this.state.passwordLength} min={6} max={60} style={{color: red[8]}} onChange={this.onChangePasswordLength.bind(this)}/>
               </Col>
-              <Col span={2} offset={1}>
+              <Col xs={{span: 4}} sm={{span: 3, offset: 1}} md={{span: 2, offset: 1}}>
                 <Input value={this.state.passwordLength} onChange={this.onChangePasswordLength.bind(this)} />
               </Col>
             </Row>
 
             <Row style={rowStyle}>
-              <Col className='text-label' span={10}>{languagesText[this.state.languageId || 'en'].includeSymbols}</Col>
-              <Col span={8}>
+              <Col className='text-label' xs={{span: 10}}>{languagesText[this.state.languageId || 'en'].includeSymbols}</Col>
+              <Col xs={{span: 10, offset: 2}} sm={{span: 9, offset: 1}}>
               <Checkbox onChange={this.onChangeIncludeSymbols.bind(this)} checked={this.state.includeSymbols}>
                 <span className='text-note' style={{userSelect: 'none'}}>(! @ # $ % *)</span>
               </Checkbox>
@@ -223,8 +223,8 @@ class LayoutComponent extends React.Component<any, State> {
             </Row>
 
             <Row style={rowStyle}>
-              <Col className='text-label' span={10}>{languagesText[this.state.languageId || 'en'].includeNumbers}</Col>
-              <Col span={8}>
+              <Col className='text-label' xs={{span: 10}}>{languagesText[this.state.languageId || 'en'].includeNumbers}</Col>
+              <Col xs={{span: 10, offset: 2}} sm={{span: 9, offset: 1}}>
               <Checkbox onChange={this.onChangeIncludeNumbers.bind(this)} checked={this.state.includeNumbers}>
                 <span className='text-note' style={{userSelect: 'none'}}>(0 1 2 3 4 5 6 7 8 9)</span>
               </Checkbox>
@@ -232,8 +232,8 @@ class LayoutComponent extends React.Component<any, State> {
             </Row>
 
             <Row style={rowStyle}>
-              <Col className='text-label' span={10}>{languagesText[this.state.languageId || 'en'].includeLowercaseCharacters}</Col>
-              <Col span={8}>
+              <Col className='text-label' xs={{span: 10}}>{languagesText[this.state.languageId || 'en'].includeLowercaseCharacters}</Col>
+              <Col xs={{span: 10, offset: 2}} sm={{span: 9, offset: 1}}>
               <Checkbox onChange={this.onChangeIncludeLowercaseCharacters.bind(this)} checked={this.state.includeLowercaseCharacters}>
                 <span className='text-note' style={{userSelect: 'none'}}>(a b c d e f g h i k)</span>
               </Checkbox>
@@ -241,8 +241,8 @@ class LayoutComponent extends React.Component<any, State> {
             </Row>
 
             <Row style={rowStyle}>
-              <Col className='text-label' span={10}>{languagesText[this.state.languageId || 'en'].includeUppercaseCharacters}</Col>
-              <Col span={8}>
+              <Col className='text-label' xs={{span: 10}}>{languagesText[this.state.languageId || 'en'].includeUppercaseCharacters}</Col>
+              <Col xs={{span: 10, offset: 2}} sm={{span: 9, offset: 1}}>
               <Checkbox onChange={this.onChangeIncludeUppercaseCharacters.bind(this)} checked={this.state.includeUppercaseCharacters}>
                 <span className='text-note' style={{userSelect: 'none'}}>(A B C D E F G H I K)</span>
               </Checkbox>
@@ -250,8 +250,8 @@ class LayoutComponent extends React.Component<any, State> {
             </Row>
 
             <Row style={rowStyle}>
-              <Col className='text-label' span={10}>{languagesText[this.state.languageId || 'en'].excludeSimilarCharacters}</Col>
-              <Col span={8}>
+              <Col className='text-label' xs={{span: 10}}>{languagesText[this.state.languageId || 'en'].excludeSimilarCharacters}</Col>
+              <Col xs={{span: 10, offset: 2}} sm={{span: 9, offset: 1}}>
               <Checkbox onChange={this.onChangeExcludeSimilarCharacters.bind(this)} checked={this.state.excludeSimilarCharacters}>
                 <span className='text-note' style={{userSelect: 'none'}}>(i l 1 L o 0 O)</span>
               </Checkbox>
@@ -259,8 +259,8 @@ class LayoutComponent extends React.Component<any, State> {
             </Row>
 
             <Row style={rowStyle}>
-              <Col className='text-label' span={10}>{languagesText[this.state.languageId || 'en'].excludeAmbiguousCharacters}</Col>
-              <Col span={8}>
+              <Col className='text-label' xs={{span: 10}}>{languagesText[this.state.languageId || 'en'].excludeAmbiguousCharacters}</Col>
+              <Col xs={{span: 10, offset: 2}} sm={{span: 9, offset: 1}}>
               <Checkbox onChange={this.onChangeExcludeAmbiguousCharacters.bind(this)} checked={this.state.excludeAmbiguousCharacters}>
                 <span className='text-note' style={{userSelect: 'none'}}>({ } [ ] ( ) / \ ' " ` ~ , ; : . &#60; &#62;)</span>
               </Checkbox>
