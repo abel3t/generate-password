@@ -324,8 +324,8 @@ class LayoutComponent extends React.Component<any, State> {
         <Layout.Footer>
         <GoogleAds
           client='ca-pub-9551612008461721'
-          slot='3901664065'
-          style={{ display: 'block', height: '250px' }}
+          slot='4755789695'
+          style={{ display: 'block' }}
           format='auto'
           responsive='true'
         />
