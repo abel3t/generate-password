@@ -27,7 +27,7 @@ export const languagesText = {
     password: 'Mật Khẩu Của Bạn:',
     buttonGenerate: 'Tạo Mật Khẩu'
   },
-  jp: {
+  ja: {
     name: '日本語',
     title: 'パスワード生成',
     h1: 'パスワード生成',
@@ -41,6 +41,7 @@ export const languagesText = {
     password: '新しいパスワード:',
   },
   fr: {
+    lang: 'fr',
     name: 'Français',
     title: 'Générateur de mots de passe',
     h1: 'Générateur de mots de passe',
@@ -53,7 +54,7 @@ export const languagesText = {
     excludeAmbiguousCharacters: 'Exclure les caractères ambigus:',
     password: 'Vos nouveaux mots de passe:'
   },
-  cn: {
+  'zh-Hant': {
     name: '中文(台灣)',
     title: '安全密碼生成器',
     h1: '安全密碼生成器',
@@ -66,7 +67,7 @@ export const languagesText = {
     excludeAmbiguousCharacters: '排除歧義字符:',
     password: '您的新密碼:'
   },
-  pt: {
+  es: {
     name: 'Português',
     title: 'Gerador de Senhas Seguras',
     h1: 'Gerador de Senhas Seguras',
@@ -79,7 +80,7 @@ export const languagesText = {
     excludeAmbiguousCharacters: 'Excluir Caracteres Ambíguos:',
     password: 'Sua Nova Senha:',
   },
-  kr: {
+  ko: {
     name: '한국어',
     title: '보안 비밀번호 생성기',
     h1: '보안 비밀번호 생성기',
@@ -104,7 +105,7 @@ export const languages = [
     name: 'Tiếng Việt'
   },
   {
-    id: 'jp',
+    id: 'ja',
     name: '日本語'
   },
   {
@@ -112,15 +113,15 @@ export const languages = [
     name: 'Français'
   },
   {
-    id: 'cn',
+    id: 'zh-Hant',
     name: '中文(台灣)'
   },
   {
-    id: 'pt',
+    id: 'es',
     name: 'Português'
   },
   {
-    id: 'kr',
+    id: 'ko',
     name: '한국어'
   }
 ]

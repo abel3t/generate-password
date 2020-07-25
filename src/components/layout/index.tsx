@@ -41,9 +41,15 @@ class LayoutComponent extends React.Component<any, State> {
 
   componentDidMount() {
     let config: State = JSON.parse(localStorage.getItem('config')) || this.state
+    let lang = config.languageId || navigator.language
+    if (!languagesText[lang]) {
+      lang = 'en'
+    }
+
     this.setState({
       ...config,
-      isLoaded: true
+      isLoaded: true,
+      languageId: lang
     })
   }
 
@@ -233,7 +239,7 @@ class LayoutComponent extends React.Component<any, State> {
             <Row>
               <Col md={{span: 21}} sm={{span: 20}} xs={{span: 16}}>
                 <Form>
-                  <Input id="password-is-generated" value={this.state.password} onKeyDown={this.onKeyDown.bind(this)}/>
+                  <Input aria-required="true" id="password-is-generated" value={this.state.password} onKeyDown={this.onKeyDown.bind(this)}/>
                 </Form>
               </Col>
 
@@ -260,7 +266,7 @@ class LayoutComponent extends React.Component<any, State> {
                 <Slider value={this.state.passwordLength} min={6} max={60} style={{color: red[8]}} onChange={this.onChangePasswordLength.bind(this)}/>
               </Col>
               <Col xs={{span: 4}} sm={{span: 3, offset: 1}} md={{span: 2, offset: 1}}>
-                <Input value={this.state.passwordLength} onChange={this.onChangePasswordLength.bind(this)} />
+                <Input aria-required="true" value={this.state.passwordLength} onChange={this.onChangePasswordLength.bind(this)} />
               </Col>
             </Row>
 

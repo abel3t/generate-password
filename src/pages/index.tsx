@@ -8,7 +8,10 @@ const IndexPage = (props: any) => {
   const [ titleText, setTitleText ] = useState('Generator Password')
   useEffect(() => {
     const config = JSON.parse(localStorage.getItem('config')) || {}
-    const lang = config.languageId || 'en'
+    let lang = config.languageId || navigator.language
+    if (!languagesText[lang]) {
+      lang = 'en'
+    }
     setTitleText(languagesText[lang].title)
   })
 
