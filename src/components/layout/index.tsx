@@ -64,6 +64,16 @@ class LayoutComponent extends React.Component<any, State> {
     this.setState({...change })
   }
   
+  onKeyDown(event) {
+    if (this.state.passwordLength > 6 && event.keyCode === 8) {
+      this.setState({
+        ...this.state,
+        password: this.state.password.slice(0, -1),
+        passwordLength: this.state.passwordLength - 1
+      })
+    }
+  }
+
   onChangeIncludeSymbols = (event) => {
     const change = {
       ...this.state,
@@ -190,7 +200,7 @@ class LayoutComponent extends React.Component<any, State> {
             <Row>
               <Col md={{span: 21}} sm={{span: 20}} xs={{span: 16}}>
                 <Form>
-                  <Input id="password-is-generated" value={this.state.password}/>
+                  <Input id="password-is-generated" value={this.state.password} onKeyDown={this.onKeyDown.bind(this)}/>
                 </Form>
               </Col>
 
