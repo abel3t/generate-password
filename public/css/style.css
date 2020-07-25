@@ -2,6 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Rowdies:wght@700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Noto+Serif:wght@700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cousine:wght@700&display=swap');
 
 .title-generator {
   font-size: 25px;
@@ -42,7 +43,7 @@
 }
 
 input {
-  font-family: monospace;
+  font-family: 'Cousine', monospace;;
   font-size: 20px;
 }
 

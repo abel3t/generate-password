@@ -187,7 +187,7 @@ class LayoutComponent extends React.Component<any, State> {
           <div className='title-generator' style={{color: blue[7]}}>{languagesText[this.state.languageId || 'en'].h1}</div>
         </Layout.Header>
         <Row>
-            <Col span={2} xs={{offset: 15}} sm={{offset: 17}} md={{offset: 19}} lg={{offset: 21}} style={{position: 'fixed'}}>
+            <Col span={2} xs={{offset: 15}} sm={{offset: 17}} md={{offset: 19}} lg={{offset: 21}} style={{marginTop: '5px'}}>
               <Select defaultValue={`${languagesText[this.state.languageId].name}`} style={{ width: 120 }} onChange={this.onChangeLanguage.bind(this)}>
                 {
                   languages.map((language, index) => <Select.Option key={`lang-${index}`} style={{textAlign: 'center'}} value={language.id}>{language.name}</Select.Option>)
