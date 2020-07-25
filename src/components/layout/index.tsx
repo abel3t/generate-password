@@ -18,7 +18,8 @@ interface State {
   excludeSimilarCharacters: boolean,
   excludeAmbiguousCharacters: boolean,
   languageId: string,
-  password: string
+  password: string,
+  isLoaded: boolean
 }
 
 class LayoutComponent extends React.Component<any, State> {
@@ -33,8 +34,21 @@ class LayoutComponent extends React.Component<any, State> {
       includeUppercaseCharacters: true,
       excludeSimilarCharacters: true,
       excludeAmbiguousCharacters: false,
-      password: ''
+      password: '',
+      isLoaded: false
     }
+  }
+
+  componentDidMount() {
+    let config: State = JSON.parse(localStorage.getItem('config')) || this.state
+    this.setState({
+      ...config,
+      isLoaded: true
+    })
+  }
+
+  setConfig2Storage(config) {
+    localStorage.setItem('config', JSON.stringify(config))
   }
 
   onCopy = () => {
@@ -61,16 +75,19 @@ class LayoutComponent extends React.Component<any, State> {
       passwordLength: +value || 6
     }
     change.password = this.generatePassword({ ...change }) || ''
+    this.setConfig2Storage({ ...change })
     this.setState({...change })
   }
   
   onKeyDown(event) {
     if (this.state.passwordLength > 6 && event.keyCode === 8) {
-      this.setState({
+      const change = {
         ...this.state,
         password: this.state.password.slice(0, -1),
         passwordLength: this.state.passwordLength - 1
-      })
+      }
+      this.setConfig2Storage({ ...change })
+      this.setState({ ...change })
     }
   }
 
@@ -80,6 +97,7 @@ class LayoutComponent extends React.Component<any, State> {
       includeSymbols: event.target.checked
     }
     change.password = this.generatePassword({ ...change }) || ''
+    this.setConfig2Storage({ ...change })
     this.setState({ ...change })
   }
 
@@ -89,6 +107,7 @@ class LayoutComponent extends React.Component<any, State> {
       includeNumbers: event.target.checked
     }
     change.password = this.generatePassword({ ...change }) || ''
+    this.setConfig2Storage({ ...change })
     this.setState({ ...change })
   }
 
@@ -98,6 +117,7 @@ class LayoutComponent extends React.Component<any, State> {
       includeLowercaseCharacters: event.target.checked
     }
     change.password = this.generatePassword({ ...change }) || ''
+    this.setConfig2Storage({ ...change })
     this.setState({ ...change })
   }
 
@@ -107,6 +127,7 @@ class LayoutComponent extends React.Component<any, State> {
       includeUppercaseCharacters: event.target.checked
     }
     change.password = this.generatePassword({ ...change }) || ''
+    this.setConfig2Storage({ ...change })
     this.setState({ ...change })
   }
 
@@ -116,6 +137,7 @@ class LayoutComponent extends React.Component<any, State> {
       excludeSimilarCharacters: event.target.checked
     }
     change.password = this.generatePassword({ ...change }) || ''
+    this.setConfig2Storage({ ...change })
     this.setState({ ...change })
   }
 
@@ -125,6 +147,7 @@ class LayoutComponent extends React.Component<any, State> {
       excludeAmbiguousCharacters: event.target.checked
     }
     change.password = this.generatePassword({...change}) || ''
+    this.setConfig2Storage({ ...change })
     this.setState({ ...change })
   }
 
@@ -135,21 +158,25 @@ class LayoutComponent extends React.Component<any, State> {
     timeout(250)
       .then(() => {
         document.getElementById('icon-generate').setAttribute('id', 'icon-gen')
-        this.setState({
+        const change = {
           ...this.state,
           password: this.generatePassword({ ...this.state })
-        })
+        }
+        this.setConfig2Storage({ ...change })
+        this.setState({ ...change })
       })
       .catch(error => console.log(error))
   }
 
   onChangeLanguage = (value) => {
-    this.setState({
+    const change = {
       ...this.state,
       languageId: value
-    })
-
-    document.title = languagesText[value].title;
+    }
+    document.title = languagesText[value].title
+    this.setConfig2Storage({ ...change })
+    
+    this.setState({ ...change })
   }
 
   generatePassword = (args: any) => {
@@ -189,7 +216,7 @@ class LayoutComponent extends React.Component<any, State> {
   render() {
     const rowStyle: CSS.Properties = {padding: '10px', fontSize: '15px', fontWeight: 450};
     const statusProgress = this.state.passwordLength < 10 ? 'exception' : this.state.passwordLength < 20 ? 'active' : 'success'
-    return (
+    return this.state.isLoaded ? (
       <Layout>
         <Layout.Header style={{background: '#FFF', textAlign: 'center'}}>
           <div className='title-generator' style={{color: blue[7]}}>{languagesText[this.state.languageId || 'en'].h1}</div>
@@ -304,7 +331,7 @@ class LayoutComponent extends React.Component<any, State> {
         />
         </Layout.Footer>
         </Layout>
-    )
+    ) : <></>
   }
 }
 
