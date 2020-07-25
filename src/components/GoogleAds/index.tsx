@@ -8,7 +8,7 @@ declare global {
 
 class GoogleAds extends React.Component<any, any> {
   componentDidMount() {
-    if(window) (window.adsbygoogle = window.adsbygoogle || []).push({});
+    if(window) (window.adsbygoogle = window.adsbygoogle || []).push({})
   }
   render() {
     return (

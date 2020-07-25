@@ -31,4 +31,4 @@ const IndexPage = (props: any) => {
   ) 
 }
 
-export default IndexPage;
+export default IndexPage

@@ -2,7 +2,7 @@ import * as React from 'react'
 import CSS from 'csstype'
 import { Form, Layout, Row, Col, Select, Checkbox, Input, Modal, Tooltip, Slider, Progress } from 'antd'
 import { ExclamationCircleOutlined, CopyOutlined, SyncOutlined } from '@ant-design/icons'
-import { blue, red } from '@ant-design/colors';
+import { blue, red } from '@ant-design/colors'
 
 import GoogleAds from '../GoogleAds'
 
@@ -24,7 +24,7 @@ interface State {
 
 class LayoutComponent extends React.Component<any, State> {
   constructor(props: any) {
-    super(props);
+    super(props)
     this.state = {
       languageId: 'en',
       passwordLength: 6,
@@ -53,13 +53,13 @@ class LayoutComponent extends React.Component<any, State> {
 
   onCopy = () => {
     const elm: any = document.getElementById('password-is-generated')
-    elm.select();
-    document.execCommand("copy");
+    elm.select()
+    document.execCommand("copy")
   }
 
   onChangePasswordLength(value) {
     if (value && value.target) {
-      value = value.target.value;
+      value = value.target.value
     }
 
     if (+value > 60) {
@@ -188,7 +188,7 @@ class LayoutComponent extends React.Component<any, State> {
       includeUppercaseCharacters,
       excludeSimilarCharacters,
       excludeAmbiguousCharacters
-    } = args;
+    } = args
     
     if (includeSymbols || includeNumbers || includeLowercaseCharacters || includeUppercaseCharacters) {
       return generatePassword(passwordLength, {
@@ -200,8 +200,8 @@ class LayoutComponent extends React.Component<any, State> {
         excludeAmbiguousCharacters
       })
     } else {
-      this.showModalError();
-      return;
+      this.showModalError()
+      return
     }
   }
 
@@ -210,17 +210,15 @@ class LayoutComponent extends React.Component<any, State> {
       title: 'Missing Include',
       icon: <ExclamationCircleOutlined />,
       content: 'You have to choose one include option!'
-    });
+    })
   }
 
   render() {
-    const rowStyle: CSS.Properties = {padding: '10px', fontSize: '15px', fontWeight: 450};
+    const rowStyle: CSS.Properties = {padding: '10px', fontSize: '15px', fontWeight: 450}
     const statusProgress = this.state.passwordLength < 10 ? 'exception' : this.state.passwordLength < 20 ? 'active' : 'success'
     return this.state.isLoaded ? (
       <Layout>
-        <Layout.Header style={{background: '#FFF', textAlign: 'center'}}>
-          <div className='title-generator' style={{color: blue[7]}}>{languagesText[this.state.languageId || 'en'].h1}</div>
-        </Layout.Header>
+        <div className='title-generator' style={{color: blue[7]}}>{languagesText[this.state.languageId || 'en'].h1}</div>
         <Row>
             <Col span={2} xs={{offset: 15}} sm={{offset: 17}} md={{offset: 19}} lg={{offset: 21}} style={{marginTop: '5px'}}>
               <Select defaultValue={`${languagesText[this.state.languageId].name}`} style={{ width: 120 }} onChange={this.onChangeLanguage.bind(this)}>
@@ -230,7 +228,7 @@ class LayoutComponent extends React.Component<any, State> {
               </Select>
             </Col>
         </Row>
-        <Layout.Content style={{padding: '40px'}}>
+        <Layout.Content style={{padding: '30px', paddingTop: '20px'}}>
           <div className="box-generated-password">
             <Row>
               <Col md={{span: 21}} sm={{span: 20}} xs={{span: 16}}>
@@ -335,4 +333,4 @@ class LayoutComponent extends React.Component<any, State> {
   }
 }
 
-export default LayoutComponent;
+export default LayoutComponent
