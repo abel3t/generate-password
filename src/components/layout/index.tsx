@@ -47,6 +47,15 @@ class LayoutComponent extends React.Component<any, State> {
     if (value && value.target) {
       value = value.target.value;
     }
+
+    if (+value > 60) {
+      value = 60
+    }
+
+    if (+value < 0) {
+      value = 0
+    }
+
     const change = {
       ...this.state,
       passwordLength: +value || 0
