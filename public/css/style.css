@@ -40,11 +40,13 @@
   font-size: 25px;
   font-family: monospace;
   border-left: none;
+  text-align: left;
 }
 
 input {
   font-family: 'Cousine', monospace;;
   font-size: 20px;
+  text-align: center;
 }
 
 .wrapper-icon-generated {
