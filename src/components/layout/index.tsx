@@ -19,7 +19,8 @@ interface State {
   excludeAmbiguousCharacters: boolean,
   languageId: string,
   password: string,
-  isLoaded: boolean
+  isLoaded: boolean,
+  inputPasswordLength: string
 }
 
 class LayoutComponent extends React.Component<any, State> {
@@ -35,7 +36,8 @@ class LayoutComponent extends React.Component<any, State> {
       excludeSimilarCharacters: true,
       excludeAmbiguousCharacters: false,
       password: '',
-      isLoaded: false
+      isLoaded: false,
+      inputPasswordLength: 'none'
     }
   }
 
@@ -60,29 +62,20 @@ class LayoutComponent extends React.Component<any, State> {
   onCopy = () => {
     const elm: any = document.getElementById('password-is-generated')
     elm.select()
-    document.execCommand("copy")
+    document.execCommand('copy')
+    elm.blur()
   }
 
   onChangePasswordLength(value) {
-    if (value && value.target) {
-      value = value.target.value
+    if (Number.isInteger(value)) {
+      const change = {
+        ...this.state,
+        passwordLength: +value || 6
+      }
+      change.password = this.generatePassword({ ...change }) || ''
+      this.setConfig2Storage({ ...change })
+      this.setState({...change })
     }
-
-    if (+value > 60) {
-      value = 60
-    }
-
-    if (+value < 6) {
-      value = 6
-    }
-
-    const change = {
-      ...this.state,
-      passwordLength: +value || 6
-    }
-    change.password = this.generatePassword({ ...change }) || ''
-    this.setConfig2Storage({ ...change })
-    this.setState({...change })
   }
   
   onKeyDown(event) {
@@ -185,6 +178,49 @@ class LayoutComponent extends React.Component<any, State> {
     this.setState({ ...change })
   }
 
+  onInputKeyDown(event) {
+    const code = event.keyCode
+    if (code === 13 || code === 27) {
+      document.getElementById('input-length').blur()
+    }
+  }
+
+  onInputBlur(event) {
+    if (event?.target?.value) {
+      let value = +event?.target?.value;
+      if (value < 6) {
+        value = 6
+      }
+      if (value > 60) {
+        value = 60
+      }
+
+      const change = {
+        ...this.state,
+        passwordLength: value,
+        inputPasswordLength: 'none'
+      }
+      change.password = this.generatePassword({ ...change })
+
+      this.setConfig2Storage({ ...change })
+      this.setState({ ...change })
+    }
+  }
+
+  onInputChange(event) {
+    let { value } = event.target
+    if (value === '') {
+      value = 0
+    }
+    
+    if (Number.isInteger(+value)) {
+      this.setState({
+        ...this.state,
+        inputPasswordLength: event.target.value
+      })
+    }
+  }
+
   generatePassword = (args: any) => {
     const {
       passwordLength,
@@ -285,7 +321,7 @@ class LayoutComponent extends React.Component<any, State> {
                 <Slider value={this.state.passwordLength} min={6} max={60} style={{color: red[8]}} onChange={this.onChangePasswordLength.bind(this)}/>
               </Col>
               <Col xs={{span: 4}} sm={{span: 3, offset: 1}} md={{span: 2, offset: 1}}>
-                <Input aria-required="true" value={this.state.passwordLength} onChange={this.onChangePasswordLength.bind(this)} />
+                <Input id='input-length' aria-required="true" type="text" value={(this.state.inputPasswordLength !== 'none') ?  this.state.inputPasswordLength : this.state.passwordLength} onBlur={this.onInputBlur.bind(this)} onChange={this.onInputChange.bind(this)} onKeyDown={this.onInputKeyDown.bind(this)}/>
               </Col>
             </Row>
 
