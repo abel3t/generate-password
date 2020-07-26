@@ -2,7 +2,7 @@ import * as React from 'react'
 import CSS from 'csstype'
 import { Form, Layout, Row, Col, Select, Checkbox, Input, Modal, Tooltip, Slider, Progress } from 'antd'
 import { ExclamationCircleOutlined, CopyOutlined, SyncOutlined } from '@ant-design/icons'
-import { blue, red } from '@ant-design/colors'
+import { blue, red, orange } from '@ant-design/colors'
 
 import GoogleAds from '../GoogleAds'
 
@@ -221,7 +221,26 @@ class LayoutComponent extends React.Component<any, State> {
 
   render() {
     const rowStyle: CSS.Properties = {padding: '10px', fontSize: '15px', fontWeight: 450}
-    const statusProgress = this.state.passwordLength < 10 ? 'exception' : this.state.passwordLength < 20 ? 'active' : 'success'
+    let strokeColor;
+    let trailColor;
+    const { passwordLength } = this.state;
+    const statusProgress = passwordLength == 60 ? 'success' : 'active'
+    if (passwordLength < 10) {
+      strokeColor = '#ff4d4f'
+      trailColor = red[0]
+    } else if (passwordLength < 20) {
+      strokeColor = '#F19B2B'
+      trailColor = orange[0]
+    } else if (passwordLength < 30) {
+      strokeColor = '#98CB6F'
+      trailColor = '#F4F9F0'
+    } else if (passwordLength < 60) {
+      strokeColor = '#5FD889'
+      trailColor = '#EFFBF3'
+    } else {
+      strokeColor = '#52c41a'
+    }
+
     return this.state.isLoaded ? (
       <Layout>
         <div className='title-generator' style={{color: blue[7]}}>{languagesText[this.state.languageId || 'en'].h1}</div>
@@ -254,7 +273,7 @@ class LayoutComponent extends React.Component<any, State> {
                 </div>
               </Col>
             </Row>
-            <Progress percent={this.state.passwordLength / 60 * 100} showInfo={false} status={statusProgress}/>
+            <Progress strokeWidth={10} strokeColor={strokeColor} trailColor={trailColor} percent={this.state.passwordLength / 60 * 100} showInfo={false} status={statusProgress}/>
           </div>
 
           <div className="setting">
