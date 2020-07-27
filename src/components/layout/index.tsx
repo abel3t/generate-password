@@ -4,7 +4,7 @@ import { Form, Layout, Row, Col, Select, Checkbox, Input, Modal, Tooltip, Slider
 import { ExclamationCircleOutlined, CopyOutlined, SyncOutlined } from '@ant-design/icons'
 import { blue, red, orange } from '@ant-design/colors'
 
-import GoogleAds from '../GoogleAds'
+// import GoogleAds from '../GoogleAds'
 
 import generatePassword from '../../services/generate-password'
 import { languages, languagesText } from '../../services/languages'
@@ -381,13 +381,13 @@ class LayoutComponent extends React.Component<any, State> {
           </div>
           </Layout.Content>
         <Layout.Footer>
-        <GoogleAds
+        {/* <GoogleAds
           client='ca-pub-9551612008461721'
           slot='4755789695'
           style={{ display: 'block' }}
           format='auto'
           responsive='true'
-        />
+        /> */}
         </Layout.Footer>
         </Layout>
     ) : <></>
