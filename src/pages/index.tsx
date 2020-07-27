@@ -26,9 +26,7 @@ const IndexPage = (props: any) => {
           <meta property="og:title" content="Secure Password Generator" />
           <meta property="og:description" content="Generate a secure password for you." />
           <meta property="og:image" content="lock-2.png" />
-          <link rel="shortcut icon" href="favicon.ico"/>
-          <script data-ad-client="ca-pub-9551612008461721" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-      </Head>
+          <link rel="shortcut icon" href="favicon.ico"/></Head>
       <LayoutComponent />
     </>
   ) 
